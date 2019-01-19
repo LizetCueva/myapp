@@ -11,6 +11,8 @@ import com.licvhn.myapp.model.Categoria;
  *
  * @author Lizet
  */
-public interface CategoriaDAO extends CRUD<Categoria>{ //hereda de CRUD
+public interface CategoriaDAO extends CRUD<Categoria>{ 
+
+//hereda de CRUD
     
 }

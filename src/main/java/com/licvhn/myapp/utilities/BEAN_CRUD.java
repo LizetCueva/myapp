@@ -14,6 +14,15 @@ public class BEAN_CRUD {
     private String MESSAGE_SERVER;
     private BEAN_PAGINATION BEAN_PAGINATION;
 
+    public BEAN_CRUD() {
+    }
+
+    public BEAN_CRUD(BEAN_PAGINATION BEAN_PAGINATION) {
+        this.BEAN_PAGINATION = BEAN_PAGINATION;
+    }
+
+    
+
     public String getMESSAGE_SERVER() {
         return MESSAGE_SERVER;
     }

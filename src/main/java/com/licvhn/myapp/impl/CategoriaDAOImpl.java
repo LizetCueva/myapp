@@ -48,7 +48,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
             while (rs.next()) {
                 beanPagination.setCOUNT_FILTER(rs.getInt("COUNT"));
                 if (rs.getInt("COUNT") > 0) {
-                    pst = conn.prepareStatement("SELECT * FROM CATEGORIA WHERE NOMBRE LIKE CONCAT ('%',?,'%') " + "ORDER BY"
+                    pst = conn.prepareStatement("SELECT * FROM CATEGORIA WHERE NOMBRE LIKE CONCAT ('%',?,'%') " + "ORDER BY "
                             + String.valueOf(parameters.get("SQL_ORDER_BY")) + " " + String.valueOf(parameters.get("SQL_LIMIT")));
                     pst.setString(1, String.valueOf(parameters.get("FILTER")));
                     LOG.info(pst.toString());
@@ -90,14 +90,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         try (Connection conn = this.pool.getConnection();
                 SQLCloseable finish = conn::rollback;) {
             conn.setAutoCommit(false);
-            pst = conn.prepareStatement("SELECT COUNT (IDCATEGORIA) FROM CATEGORIA WHERE NOMBRE = ? ");
+            pst = conn.prepareStatement("SELECT COUNT (IDCATEGORIA) FROM CATEGORIA WHERE NOMBRE = ?");
             pst.setString(1, obj.getNombre());
             LOG.info(pst.toString());
             rs = pst.executeQuery();
             while (rs.next()) {
                 if (rs.getInt("COUNT") == 0) {
                     //realizamos la transacción
-                    pst = conn.prepareStatement("INSERT INTO CATEGORIA(NOMBRE) VALUES (?)");
+                    pst = conn.prepareStatement("INSERT INTO CATEGORIA(NOMBRE) VALUES(?)");
                     pst.setString(1, obj.getNombre());
                     LOG.info(pst.toString());
                     pst.executeUpdate();
@@ -127,7 +127,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         try (Connection conn = this.pool.getConnection();
                 SQLCloseable finish = conn::rollback;) {
             conn.setAutoCommit(false);
-            pst = conn.prepareStatement("SELECT COUNT (IDCATEGORIA) FROM CATEGORIA WHERE NOMBRE = ? AND IDCATEGORA != ?");
+            pst = conn.prepareStatement("SELECT COUNT(IDCATEGORIA) AS COUNT FROM CATEGORIA WHERE NOMBRE = ? AND IDCATEGORIA != ?");
             pst.setString(1, obj.getNombre());
             pst.setInt(2, obj.getIdcategoria());
             LOG.info(pst.toString());
@@ -166,7 +166,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         try (Connection conn = this.pool.getConnection();
                 SQLCloseable finish = conn::rollback;) {
             conn.setAutoCommit(false);
-            try (PreparedStatement pst = conn.prepareStatement("DELETE FROM CATEGORIA WHERE IDCATEGORIA = ? ")) {
+            try (PreparedStatement pst = conn.prepareStatement("DELETE FROM CATEGORIA WHERE IDCATEGORIA = ?")) {
                 pst.setInt(1, id);
                 LOG.info(pst.toString());
                 pst.executeUpdate();
